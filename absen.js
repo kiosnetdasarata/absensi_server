@@ -62,10 +62,10 @@ app.use('/iclock/cdata', (req, res) => {
           // 'status':status_baru
           'logType' : "absen",
           'data' : {
-              "id" : id,
-              "tgl" : tgl,
-              "jam": jam,
-              "status": status_baru,
+              'id' : id,
+              'tgl' : tgl,
+              'jam': jam,
+              'status' : status_baru,
           }
         }
       };
