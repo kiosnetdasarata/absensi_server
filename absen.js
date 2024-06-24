@@ -34,18 +34,39 @@ app.use('/iclock/cdata', (req, res) => {
           status_baru += 'pulang'
         }
         
+      // var options = {
+      //   'method': 'POST',
+      //   'url': 'https://script.google.com/macros/s/AKfycbwLpl8uQiGifVsMIQQZzmDLz6RxNsVQ7KPumEf3sXT90WXsOZOTdnZcuMo90QpLogTe0w/exec',
+      //   'headers': {
+      //     'Content-Type': 'application/x-www-form-urlencoded'
+      //   },
+      //   form: {
+      //     // 'sn': data_sn,
+      //     'id':id,
+      //     'tgl':tgl,
+      //     'jam': jam,
+      //     'status':status_baru
+      //   }
+      // };
       var options = {
         'method': 'POST',
-        'url': 'https://script.google.com/macros/s/AKfycbwLpl8uQiGifVsMIQQZzmDLz6RxNsVQ7KPumEf3sXT90WXsOZOTdnZcuMo90QpLogTe0w/exec',
+        'url': 'http://103.184.19.40:3000/api/send-whatsapp',
         'headers': {
           'Content-Type': 'application/x-www-form-urlencoded'
         },
         form: {
           // 'sn': data_sn,
-          'id':id,
-          'tgl':tgl,
-          'jam': jam,
-          'status':status_baru
+          // 'id':id,
+          // 'tgl':tgl,
+          // 'jam': jam,
+          // 'status':status_baru
+          'logType' : "absen",
+          'data' : {
+              "id" : id,
+              "tgl" : tgl,
+              "jam": jam,
+              "status": status_baru,
+          }
         }
       };
       request(options, function (error, response) {
