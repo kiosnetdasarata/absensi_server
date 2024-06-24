@@ -48,6 +48,7 @@ app.use('/iclock/cdata', (req, res) => {
       //     'status':status_baru
       //   }
       // };
+      
       var options = {
         'method': 'POST',
         'url': 'http://103.184.19.40:3000/api/send-whatsapp',
@@ -69,6 +70,7 @@ app.use('/iclock/cdata', (req, res) => {
           }
         }
       };
+      console.log(options);
       request(options, function (error, response) {
         if (error) throw new Error(error);
       });
