@@ -66,7 +66,7 @@ app.use('/iclock/cdata', (req, res) => {
             "http://103.184.19.40:3000/api/send-whatsapp",
             dataAbsen
           );
-            console.log(response.status);
+            // console.log(response.status);
           } catch (err) {
             console.log(err.response.data);
           }
