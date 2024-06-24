@@ -1,5 +1,6 @@
 const express = require('express')
 var request = require('request');
+const axios = require('axios');
 const app = express()
 const port = 9000
 
@@ -15,7 +16,7 @@ app.use('/iclock/cdata', (req, res) => {
           body += chunk.toString(); // convert Buffer to string
       });
 
-      req.on('end', () => {
+      req.on('end', async () => {
         let data_sn = req.query.SN
         let data = body.split('\t')
         
@@ -48,32 +49,51 @@ app.use('/iclock/cdata', (req, res) => {
       //     'status':status_baru
       //   }
       // };
-      
-      var options = {
-        'method': 'POST',
-        'url': 'http://103.184.19.40:3000/api/send-whatsapp',
-        'headers': {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        form: {
-          // 'sn': data_sn,
-          // 'id':id,
-          // 'tgl':tgl,
-          // 'jam': jam,
-          // 'status':status_baru
-          'logType' : "absen",
-          'data' : {
+
+      const dataAbsen = {
+        'logType' : "absen",
+        'data' : {
               'id' : id,
               'tgl' : tgl,
               'jam': jam,
               'status' : status_baru,
-          }
         }
       };
-      console.log(options);
-      request(options, function (error, response) {
-        if (error) throw new Error(error);
-      });
+      try {
+        const response = await axios.post(
+            "http://103.184.19.40:3000/api/send-whatsapp",
+            dataAbsen
+          );
+            console.log(response.status);
+          } catch (err) {
+            console.log(err.response.data);
+          }
+      
+      // var options = {
+      //   'method': 'POST',
+      //   'url': 'http://103.184.19.40:3000/api/send-whatsapp',
+      //   'headers': {
+      //     'Content-Type': 'application/x-www-form-urlencoded'
+      //   },
+      //   form: {
+      //     // 'sn': data_sn,
+      //     // 'id':id,
+      //     // 'tgl':tgl,
+      //     // 'jam': jam,
+      //     // 'status':status_baru
+      //     'logType' : "absen",
+      //     'data' : {
+      //         'id' : id,
+      //         'tgl' : tgl,
+      //         'jam': jam,
+      //         'status' : status_baru,
+      //     }
+      //   }
+      // };
+      // console.log(options);
+      // request(options, function (error, response) {
+      //   if (error) throw new Error(error);
+      // });
 
     });
     
